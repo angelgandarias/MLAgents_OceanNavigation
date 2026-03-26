@@ -29,6 +29,8 @@ public class ShipController : MonoBehaviour
     private float moveInput;
     private float turnInput;
 
+    private float currentSteeringAngle = 0f;
+
     private void Awake()
     {
         rbody = GetComponent<Rigidbody>();
@@ -36,24 +38,20 @@ public class ShipController : MonoBehaviour
 
     private void Update()
     {
-        // Gather input in Update (better for responsiveness)
-        // Default axes: W/S or Up/Down arrows for Vertical, A/D or Left/Right arrows for Horizontal
-        moveInput = Input.GetAxis("Vertical");
-        if(invertTurn){
-            turnInput = -Input.GetAxis("Horizontal");
-        }
-        else
-        {
-            turnInput = Input.GetAxis("Horizontal");
-        }
-        if(Input.GetKey(KeyCode.Escape)) Application.Quit();
+        if (Input.GetKey(KeyCode.Escape)) Application.Quit();
     }
 
     private void FixedUpdate()
     {
-        // Apply physics in FixedUpdate
-        ApplyThrust();
-        ApplySteering();
+        if (moveInput > 0.05f)
+            GoForward();
+        else if (moveInput < -0.05f)
+            GoReverse();
+
+        if (turnInput > 0.05f)
+            TurnRight();
+        else if (turnInput < -0.05f)
+            TurnLeft();
     }
 
     // 2. Helper method to return the correct local directional vector
@@ -70,6 +68,7 @@ public class ShipController : MonoBehaviour
             default: return transform.forward;
         }
     }
+    
 
     private void ApplyThrust()
     {
@@ -96,5 +95,42 @@ public class ShipController : MonoBehaviour
 
             rbody.AddTorque(transform.up * (turnInput * rudderPower * turnMultiplier), ForceMode.Acceleration);
         }
+    }
+
+
+    public void GoForward()
+    {
+        rbody.AddForce(GetForwardVector() * enginePower, ForceMode.Acceleration);
+    }
+
+    public void GoReverse()
+    {
+        rbody.AddForce(GetForwardVector() * -reversePower, ForceMode.Acceleration);
+    }
+
+    public void TurnRight()
+    {
+        float turnMultiplier = Mathf.Clamp(moveInput, -1f, 1f);
+        if (Mathf.Abs(turnMultiplier) < 0.1f) turnMultiplier = 0.5f;
+
+        rbody.AddTorque(transform.up * (rudderPower * turnMultiplier), ForceMode.Acceleration);
+    }
+
+    public void TurnLeft()
+    {
+        float turnMultiplier = Mathf.Clamp(moveInput, -1f, 1f);
+        if (Mathf.Abs(turnMultiplier) < 0.1f) turnMultiplier = 0.5f;
+
+        rbody.AddTorque(transform.up * (-rudderPower * turnMultiplier), ForceMode.Acceleration);
+    }
+
+    public void Brakes()
+    {
+        rbody.linearVelocity *= 0.95f;
+    }
+
+    public void ResetSteeringAngle()
+    {
+        currentSteeringAngle = Mathf.Lerp(currentSteeringAngle, 0f, Time.fixedDeltaTime * 3f);
     }
 }

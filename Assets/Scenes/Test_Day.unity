@@ -8709,7 +8709,8 @@ PrefabInstance:
     - {fileID: -6050354319306975645, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
     - {fileID: 8355761769428307056, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
     - {fileID: -1768227912360683462, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3894943320250371707, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
       insertIndex: -1
@@ -8745,6 +8746,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2132189355}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2132189360}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2132189359}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2132189361}
     - targetCorrespondingSourceObject: {fileID: 294844309206645784, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1188133407}
@@ -17437,7 +17447,7 @@ MonoBehaviour:
   enginePower: 10
   reversePower: 5
   rudderPower: 4
-  invertTurn: 1
+  invertTurn: 0
 --- !u!114 &2132189356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17491,6 +17501,70 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
   m_PrefabInstance: {fileID: 337908711}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2132189359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132189353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93ce4fd08e0912298b92ce8c57aa138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AgentToDrive
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 1000
+  shipController: {fileID: 2132189355}
+  spawner: {fileID: 1434241749}
+--- !u!114 &2132189360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132189353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Policies.BehaviorParameters
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 0300000003000000
+    VectorActionSize: 0300000003000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &2132189361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132189353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.DecisionRequester
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &2138638830
 GameObject:
   m_ObjectHideFlags: 0
