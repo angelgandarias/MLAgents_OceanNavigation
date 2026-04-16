@@ -145,7 +145,7 @@ public class WaveManager : MonoBehaviour
                 offset += CalculateGerstnerWave(cachedWaveData[w], estimatedGridPoint);
             }
 
-            Vector2 error = new Vector2(x - (estimatedGridPoint.x + offset.x), z - (estimatedGridPoint.y + offset.z));
+            Vector2 error = new Vector2(position.x - (estimatedGridPoint.x + offset.x), position.z - (estimatedGridPoint.y + offset.z));
             estimatedGridPoint += error;
         }
 
@@ -159,4 +159,6 @@ public class WaveManager : MonoBehaviour
 
         return baseWaterHeight + finalDisplacement.y;
     }
+
+
 }

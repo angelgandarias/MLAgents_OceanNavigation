@@ -19,6 +19,9 @@ public class AgentToDrive : Agent {
     [SerializeField] private GameObject Punto6;
     [SerializeField] private GameObject Punto7;
     [SerializeField] private GameObject Punto8;
+    [SerializeField] private GameObject PuntoFinal;
+    private float distanceToGoal;
+    private float distanceMinimum;
 
     //Called each time it has timed-out or has reached the goal
     public override void OnEpisodeBegin()    {
@@ -27,10 +30,21 @@ public class AgentToDrive : Agent {
 
         //_checkpointManager.ResetCheckpoints();
         ResetPosition();
+        distanceToGoal = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
+        distanceMinimum = distanceToGoal;
 
     }
 
+    public void Rewards()
+    {
+        distanceToGoal = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
 
+        if (distanceToGoal < distanceMinimum)
+        {
+            AddReward(distanceMinimum - distanceToGoal);
+            distanceMinimum = distanceToGoal;
+        }
+    }
     
 
     // Lógica para recibir acciones del agente
