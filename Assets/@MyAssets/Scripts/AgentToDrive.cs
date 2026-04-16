@@ -17,7 +17,7 @@ public class AgentToDrive : Agent {
         //ResetCar();
 
         //_checkpointManager.ResetCheckpoints();
-        ResetPosistion();
+        ResetPosition();
 
     }
 
@@ -108,7 +108,7 @@ public class AgentToDrive : Agent {
 
     }
 
-    public void ResetPosistion()
+    public void ResetPosition()
     {
         spawner.ResetShipPosition();
     }
