@@ -9,7 +9,16 @@ using UnityEngine.SceneManagement;
 public class AgentToDrive : Agent {
 
     [SerializeField] private ShipController shipController;
+    [SerializeField] private WaveManager waveManager;
     [SerializeField] private ShipSpawner spawner;
+    [SerializeField] private GameObject Punto1;
+    [SerializeField] private GameObject Punto2;
+    [SerializeField] private GameObject Punto3;
+    [SerializeField] private GameObject Punto4;
+    [SerializeField] private GameObject Punto5;
+    [SerializeField] private GameObject Punto6;
+    [SerializeField] private GameObject Punto7;
+    [SerializeField] private GameObject Punto8;
 
     //Called each time it has timed-out or has reached the goal
     public override void OnEpisodeBegin()    {
@@ -72,7 +81,22 @@ public class AgentToDrive : Agent {
             shipController.Brakes();
         }
     }
+    public override void CollectObservations(VectorSensor sensor)
+    {
 
+        sensor.AddObservation(shipController.transform.localPosition);
+        sensor.AddObservation(shipController.transform.localRotation);
+        sensor.AddObservation(shipController.GetComponent<Rigidbody>().linearVelocity);
+        sensor.AddObservation(waveManager.WaveHeight(Punto1.transform.position));
+        sensor.AddObservation(waveManager.WaveHeight(Punto2.transform.position));
+        sensor.AddObservation(waveManager.WaveHeight(Punto3.transform.position));
+        sensor.AddObservation(waveManager.WaveHeight(Punto4.transform.position));
+        sensor.AddObservation(waveManager.WaveHeight(Punto5.transform.position));
+        sensor.AddObservation(waveManager.WaveHeight(Punto6.transform.position));
+        sensor.AddObservation(waveManager.WaveHeight(Punto7.transform.position));
+        sensor.AddObservation(waveManager.WaveHeight(Punto8.transform.position));
+
+    }
     public override void Heuristic(in ActionBuffers actionsOut){
 
         

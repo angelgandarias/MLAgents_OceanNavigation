@@ -130,4 +130,33 @@ public class WaveManager : MonoBehaviour
 
         return baseWaterHeight + finalDisplacement.y;
     }
+    public float WaveHeight(Vector3 position)
+    {
+        Vector2 estimatedGridPoint = new Vector2(position.x, position.z);
+
+        // 3 iterations of approximation to find the correct origin point
+        for (int i = 0; i < 3; i++)
+        {
+            Vector3 offset = Vector3.zero;
+
+            // Loop through all waves to accumulate the offset
+            for (int w = 0; w < cachedWaveData.Length; w++)
+            {
+                offset += CalculateGerstnerWave(cachedWaveData[w], estimatedGridPoint);
+            }
+
+            Vector2 error = new Vector2(x - (estimatedGridPoint.x + offset.x), z - (estimatedGridPoint.y + offset.z));
+            estimatedGridPoint += error;
+        }
+
+        Vector3 finalDisplacement = Vector3.zero;
+
+        // Calculate the final height using the corrected grid point
+        for (int w = 0; w < cachedWaveData.Length; w++)
+        {
+            finalDisplacement += CalculateGerstnerWave(cachedWaveData[w], estimatedGridPoint);
+        }
+
+        return baseWaterHeight + finalDisplacement.y;
+    }
 }
