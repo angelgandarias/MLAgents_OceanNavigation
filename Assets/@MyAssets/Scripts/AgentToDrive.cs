@@ -6,7 +6,8 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine.SceneManagement;
 
-public class AgentToDrive : Agent {
+public class AgentToDrive : Agent
+{
 
     [SerializeField] private ShipController shipController;
     [SerializeField] private WaveManager waveManager;
@@ -24,7 +25,8 @@ public class AgentToDrive : Agent {
     private float distanceMinimum;
 
     //Called each time it has timed-out or has reached the goal
-    public override void OnEpisodeBegin()    {
+    public override void OnEpisodeBegin()
+    {
 
         //ResetCar();
 
@@ -43,17 +45,24 @@ public class AgentToDrive : Agent {
         {
             AddReward(distanceMinimum - distanceToGoal);
             distanceMinimum = distanceToGoal;
+            if(distanceToGoal < 5)
+            {
+                AddReward(100);
+                EndEpisode();
+            }
         }
     }
-    
+
 
     // Lógica para recibir acciones del agente
-    public override void OnActionReceived(ActionBuffers actionBuffers)    {
+    public override void OnActionReceived(ActionBuffers actionBuffers)
+    {
 
         // Move the agent using the action.
         MoveAgent(actionBuffers.DiscreteActions);
 
         //funcion de recompensa
+        Rewards();
 
     }
 
@@ -98,8 +107,9 @@ public class AgentToDrive : Agent {
     public override void CollectObservations(VectorSensor sensor)
     {
 
-        sensor.AddObservation(shipController.transform.localPosition);
-        sensor.AddObservation(shipController.transform.localRotation);
+        sensor.AddObservation(shipController.transform.position);
+        sensor.AddObservation(shipController.transform.rotation);
+        sensor.AddObservation(PuntoFinal.transform.position);
         sensor.AddObservation(shipController.GetComponent<Rigidbody>().linearVelocity);
         sensor.AddObservation(waveManager.WaveHeight(Punto1.transform.position));
         sensor.AddObservation(waveManager.WaveHeight(Punto2.transform.position));
@@ -111,14 +121,15 @@ public class AgentToDrive : Agent {
         sensor.AddObservation(waveManager.WaveHeight(Punto8.transform.position));
 
     }
-    public override void Heuristic(in ActionBuffers actionsOut){
+    public override void Heuristic(in ActionBuffers actionsOut)
+    {
 
-        
+
         var actions = actionsOut.DiscreteActions;
 
         if (Input.GetKey(KeyCode.W))
         {
-            actions[1] = 0; 
+            actions[1] = 0;
         }
         if (Input.GetKey(KeyCode.S))
         {
@@ -138,7 +149,7 @@ public class AgentToDrive : Agent {
         {
             actions[0] = 1;
         }
-        
+
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)))
         {
             actions[0] = 2;
