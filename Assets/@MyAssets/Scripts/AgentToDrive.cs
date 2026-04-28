@@ -20,6 +20,7 @@ public class AgentToDrive : Agent
     [SerializeField] private GameObject Punto6;
     [SerializeField] private GameObject Punto7;
     [SerializeField] private GameObject Punto8;
+    [SerializeField] private GameObject objetivo;
     [SerializeField] private GameObject PuntoFinal;
     private float distanceToGoal;
     private float distanceMinimum;
@@ -28,7 +29,9 @@ public class AgentToDrive : Agent
     public override void OnEpisodeBegin()
     {
 
-        //ResetCar();
+        PuntoFinal = objetivo.GetComponent<ObjectiveSpawner>().ChangeObjective();
+       
+        
 
         //_checkpointManager.ResetCheckpoints();
         ResetPosition();
@@ -38,20 +41,23 @@ public class AgentToDrive : Agent
     }
 
     public void Rewards()
-    {
-        distanceToGoal = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
+{
+    float distanceToGoal = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
 
-        if (distanceToGoal < distanceMinimum)
-        {
-            AddReward(distanceMinimum - distanceToGoal);
-            distanceMinimum = distanceToGoal;
-            if(distanceToGoal < 5)
-            {
-                AddReward(100);
-                EndEpisode();
-            }
-        }
+    // Usamos un offset de 1.0f para evitar divisiones por cero 
+    // y para que la recompensa máxima no tienda al infinito.
+    float rewardValue = 1.0f / (distanceToGoal + 1.0f); 
+    
+    // Aplicamos la recompensa en cada paso (Continuous Reward)
+    AddReward(rewardValue * 0.1f); 
+
+    // Bonus por llegada
+    if (distanceToGoal < 5f)
+    {
+        AddReward(100f);
+        EndEpisode();
     }
+}
 
 
     // Lógica para recibir acciones del agente
