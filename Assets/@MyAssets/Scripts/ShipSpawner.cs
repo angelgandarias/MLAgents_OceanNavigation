@@ -14,6 +14,8 @@ public class ShipSpawner : MonoBehaviour
     public void ResetShipPosition()
     {
         //El barco tiene mal los ejes...
-        ship.transform.SetPositionAndRotation(originalSpawn.position, Quaternion.Euler(0, 0, 180));
+        ship.transform.SetPositionAndRotation(originalSpawn.position, Quaternion.Euler(0, -180, 180));
+        ship.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        ship.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
 }

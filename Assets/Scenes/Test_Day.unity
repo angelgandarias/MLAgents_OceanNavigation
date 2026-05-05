@@ -5334,7 +5334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7
+      value: 24.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6037,6 +6037,7 @@ MonoBehaviour:
   Punto7: {fileID: 1538484392}
   Punto8: {fileID: 1405766152}
   objetivo: {fileID: 1793171176}
+  PuntoFinal: {fileID: 0}
 --- !u!114 &580168209
 MonoBehaviour:
   m_ObjectHideFlags: 0
