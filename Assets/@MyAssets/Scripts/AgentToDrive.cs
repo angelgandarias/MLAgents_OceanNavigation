@@ -30,8 +30,8 @@ public class AgentToDrive : Agent
     {
 
         PuntoFinal = objetivo.GetComponent<ObjectiveSpawner>().ChangeObjective();
-       
-        
+
+
 
         //_checkpointManager.ResetCheckpoints();
         ResetPosition();
@@ -41,23 +41,33 @@ public class AgentToDrive : Agent
     }
 
     public void Rewards()
-{
-    float distanceToGoal = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
-
-    // Usamos un offset de 1.0f para evitar divisiones por cero 
-    // y para que la recompensa máxima no tienda al infinito.
-    float rewardValue = 1.0f / (distanceToGoal + 1.0f); 
-    
-    // Aplicamos la recompensa en cada paso (Continuous Reward)
-    AddReward(rewardValue * 0.1f); 
-
-    // Bonus por llegada
-    if (distanceToGoal < 5f)
     {
-        AddReward(100f);
-        EndEpisode();
+        float distanceToGoal = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
+
+        // Usamos un offset de 1.0f para evitar divisiones por cero 
+        // y para que la recompensa máxima no tienda al infinito.
+        float rewardValue = 1.0f / (distanceToGoal + 1.0f);
+
+        // Aplicamos la recompensa en cada paso (Continuous Reward)
+        if (distanceMinimum > distanceToGoal)
+        {
+            AddReward(rewardValue * 0.1f);
+            Debug.Log(rewardValue * 0.1f);
+            distanceMinimum = distanceToGoal;
+        }
+        else
+        {
+            Debug.Log("Barco se ha alejado. No se le da recompensa.");
+        }
+        // Bonus por llegada
+        if (distanceToGoal < 5f)
+        {
+            AddReward(100f);
+            Debug.Log("¡Objetivo alcanzado!");
+            EndEpisode();
+        }
+
     }
-}
 
 
     // Lógica para recibir acciones del agente
