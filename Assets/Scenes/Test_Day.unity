@@ -5449,6 +5449,9 @@ PrefabInstance:
       addedObject: {fileID: 580168208}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 580168213}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 580168207}
     - targetCorrespondingSourceObject: {fileID: 294844309206645784, guid: c5a9ddd08d832da438711ee273b36e14, type: 3}
       insertIndex: -1
@@ -6133,6 +6136,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &580168213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580168201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9513082b9b51583439120330053a632b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurriculumController
+  weatherController: {fileID: 484807162}
 --- !u!1 &600377859
 GameObject:
   m_ObjectHideFlags: 0
