@@ -10,6 +10,7 @@ public class AgentToDrive : Agent
 {
     [SerializeField] private ShipController shipController;
     [SerializeField] private WaveManager waveManager;
+    [SerializeField] private WaveDirectionRandomizer waveRandomizer;
     [SerializeField] private ShipSpawner spawner;
     [SerializeField] private GameObject Punto1;
     [SerializeField] private GameObject Punto2;
@@ -27,16 +28,14 @@ public class AgentToDrive : Agent
     public override void OnEpisodeBegin()
     {
         PuntoFinal = objetivo.GetComponent<ObjectiveSpawner>().ChangeObjective();
-
         ResetPosition();
-
+        waveRandomizer.RandomizeWaveDirections();
         previousDistance = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
         // 1. LOCAL DIRECTION TO GOAL
-        // This tells the agent exactly where the goal is relative to the way it is currently facing.
         Vector3 localDirectionToGoal = shipController.transform.InverseTransformPoint(PuntoFinal.transform.position);
         sensor.AddObservation(localDirectionToGoal.normalized); // Size: 3
 
@@ -45,7 +44,6 @@ public class AgentToDrive : Agent
         sensor.AddObservation(currentDistance); // Size: 1
 
         // 3. LOCAL VELOCITY
-        // Tells the agent if it's moving forward, sliding sideways, or reversing relative to itself
         Vector3 localVelocity = shipController.transform.InverseTransformDirection(shipController.GetComponent<Rigidbody>().linearVelocity);
         sensor.AddObservation(localVelocity); // Size: 3
 
@@ -65,8 +63,8 @@ public class AgentToDrive : Agent
         MoveAgent(actionBuffers.DiscreteActions);
         CheckCapsized();
         Rewards();
+        CheckCapsized();
 
-        // Existential penalty to force it to hurry up and not drive in circles
         if (MaxStep > 0)
         {
             AddReward(-1f / MaxStep);
@@ -77,19 +75,33 @@ public class AgentToDrive : Agent
     {
         float currentDistance = Vector3.Distance(shipController.transform.position, PuntoFinal.transform.position);
 
-        // DELTA DISTANCE REWARD
-        // If distanceDelta is positive, the ship moved closer. If negative, it moved away.
         float distanceDelta = previousDistance - currentDistance;
         AddReward(distanceDelta * 1.0f); 
 
-        // Update for the next frame
         previousDistance = currentDistance;
 
-        // ARRIVAL BONUS
         if (currentDistance < 5f)
         {
             AddReward(10f);
             Debug.Log("¡Objetivo alcanzado! Episodio "+CompletedEpisodes+ ". El objetivo alcanzado ha sido "+ PuntoFinal.gameObject.name);
+            EndEpisode();
+        }
+    }
+
+    void CheckCapsized()
+    {
+        if (shipController.transform.up.y < 0.3f)
+        {
+            AddReward(-10f);
+            Debug.Log("¡Barco volcado! Reiniciando episodio.");
+            EndEpisode();
+            return;
+        }
+
+        if (shipController.transform.position.y < -2f)
+        {
+            AddReward(-10f);
+            Debug.Log("¡Barco hundido! Reiniciando episodio.");
             EndEpisode();
         }
     }

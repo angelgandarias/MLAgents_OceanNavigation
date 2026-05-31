@@ -4144,6 +4144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 484807163}
   - component: {fileID: 484807161}
+  - component: {fileID: 484807164}
   - component: {fileID: 484807162}
   m_Layer: 0
   m_Name: Ocean
@@ -4248,6 +4249,20 @@ Transform:
   - {fileID: 968795488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &484807164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484807160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234324c15285f73468748935c44e3d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveDirectionRandomizer
+  waveManager: {fileID: 484807161}
+  maxRotationAngle: 180
 --- !u!183 &514939948
 Cloth:
   m_ObjectHideFlags: 0
@@ -6030,6 +6045,7 @@ MonoBehaviour:
   MaxStep: 0
   shipController: {fileID: 580168210}
   waveManager: {fileID: 484807161}
+  waveRandomizer: {fileID: 484807164}
   spawner: {fileID: 357274055}
   Punto1: {fileID: 925693102}
   Punto2: {fileID: 1671405309}
@@ -6256,7 +6272,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 156.8, y: 9.3, z: 23.8}
-  m_LocalScale: {x: 144.94, y: 144.94, z: 144.94}
+  m_LocalScale: {x: 606.15356, y: 606.15356, z: 606.15356}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -8007,7 +8023,7 @@ Transform:
   m_GameObject: {fileID: 1207192582}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.1, y: 0, z: 52.2}
+  m_LocalPosition: {x: -150.8, y: 0, z: -163.5}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -13313,7 +13329,7 @@ Transform:
   m_GameObject: {fileID: 1335252881}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -249.1, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -19697,7 +19713,7 @@ Transform:
   m_GameObject: {fileID: 2111136606}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: -18}
+  m_LocalPosition: {x: 50, y: 0, z: -245}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
