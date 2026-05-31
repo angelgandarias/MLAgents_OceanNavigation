@@ -61,7 +61,6 @@ public class AgentToDrive : Agent
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         MoveAgent(actionBuffers.DiscreteActions);
-        CheckCapsized();
         Rewards();
         CheckCapsized();
 
@@ -136,17 +135,4 @@ public class AgentToDrive : Agent
     {
         spawner.ResetShipPosition();
     }
-    void CheckCapsized()
-{
-    //Si el eje Y del barco apunta hacia abajo (y con cierto ángulo), está volcado
-    if (shipController.transform.up.y > 0.4f)
-    {
-        
-        AddReward(-10f);
-        Debug.Log("¡Barco volcado! Reiniciando episodio.");
-        EndEpisode();
-        
-    }
-    Debug.Log(shipController.transform.up.y);
-}
 }
