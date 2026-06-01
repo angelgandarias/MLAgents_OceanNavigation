@@ -6042,7 +6042,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 8000
   shipController: {fileID: 580168210}
   waveManager: {fileID: 484807161}
   waveRandomizer: {fileID: 484807164}
@@ -6100,7 +6100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardAxis: 0
-  enginePower: 10
+  enginePower: 15
   reversePower: 4
   rudderPower: 4
   invertTurn: 0
