@@ -11,7 +11,7 @@ public class WaveDirectionRandomizer : MonoBehaviour
     // Guardamos las direcciones originales del Inspector
     private Vector2[] originalDirections;
 
-    private void Start()
+    private void Awake()
     {
         // Memorizamos las direcciones base que tienes configuradas en el Inspector
         originalDirections = new Vector2[waveManager.waves.Length];

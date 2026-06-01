@@ -27,6 +27,7 @@ public class AgentToDrive : Agent
 
     public override void OnEpisodeBegin()
     {
+        Debug.Log("Starting new episode!");
         PuntoFinal = objetivo.GetComponent<ObjectiveSpawner>().ChangeObjective();
         ResetPosition();
         waveRandomizer.RandomizeWaveDirections();
@@ -89,7 +90,7 @@ public class AgentToDrive : Agent
 
     void CheckCapsized()
     {
-        if (shipController.transform.up.y < 0.3f)
+        if (-shipController.transform.up.y < 0.3f)
         {
             AddReward(-10f);
             Debug.Log("¡Barco volcado! Reiniciando episodio.");
