@@ -98,7 +98,7 @@ public class AgentToDrive : Agent
             return;
         }
 
-        if (shipController.transform.position.y < -2f)
+        if (shipController.transform.position.y < -4f)
         {
             AddReward(-10f);
             Debug.Log("¡Barco hundido! Reiniciando episodio.");
